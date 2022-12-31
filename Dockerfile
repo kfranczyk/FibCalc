@@ -15,7 +15,7 @@ FROM openjdk:8-jdk-alpine
 WORKDIR /app
 ARG EXTRACTED=/workspace/app-source/target/extracted
 
-ESPOSE 8090
+EXPOSE 8090
 
 COPY --from=build ${EXTRACTED}/dependencies/ ./
 COPY --from=build ${EXTRACTED}/spring-boot-loader/ ./
