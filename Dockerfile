@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1.2
-FROM openjdk:8-jdk-alpine as build
+FROM openjdk:8-jdk-alpine3.9 as build
 WORKDIR /workspace/app-source
 
 COPY mvnw .
@@ -11,7 +11,7 @@ RUN ./mvnw install -DskipTests
 RUN mkdir -p target/extracted && (java -Djarmode=layertools -jar target/*.jar extract --destination target/extracted)
 
 
-FROM openjdk:8-jdk-alpine
+FROM openjdk:8-jre-alpine3.9
 WORKDIR /app
 ARG EXTRACTED=/workspace/app-source/target/extracted
 
