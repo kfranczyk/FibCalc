@@ -54,5 +54,5 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          cache-from: type=registry,ref=docker.io/tmotw/fib-calc-cache:latest,mode=max
-          cache-to: type=registry,ref=docker.io/tmotw/fib-calc-cache:latest,mode=max
+          cache-from: type=registry,src=/tmp/.buildx-cache
+          cache-to: type=registry,ref=docker.io/${{ secrets.DOCKERHUB_USERNAME }}/fib-calc-cache:latest,mode=max
