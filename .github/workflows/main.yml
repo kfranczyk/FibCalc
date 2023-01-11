@@ -8,7 +8,7 @@ on:
       - "v*.*.*"
 
 env:
-  GITREGISTRY: ghcr.io/${{ github.actor }}
+  GITREGISTRY: ghcr.io/kfranczyk
 
 jobs:
   build-and-push:
@@ -35,7 +35,7 @@ jobs:
         uses: docker/login-action@v2
         with:
           registry: ghcr.io
-          username: ${{ github.actor }}
+          username: kfranczyk
           password: ${{ secrets.ACCESS_GITHUB_TOKEN }}
           
       - name: Extract metadata (tags, labels) for Docker
