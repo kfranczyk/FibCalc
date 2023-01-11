@@ -8,7 +8,7 @@ on:
       - "v*.*.*"
 
 env:
-  GITREGISTRY: ghcr.io/${{ secrets.DOCKERHUB_USERNAME }}
+  GITREGISTRY: ghcr.io/${{ github.actor }}
 
 jobs:
   build-and-push:
