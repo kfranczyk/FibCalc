@@ -1,24 +1,12 @@
-# syntax=docker/dockerfile:1.2
-FROM openjdk:8-jdk-alpine3.9 as build
-WORKDIR /workspace/app-source
+FROM openjdk:8-jdk-alpine3.9 as builder
+ARG JAR_FILE=target/*.jar
+COPY ${JAR_FILE} application.jar
+RUN java -Djarmode=layertools -jar application.jar extract
 
-COPY mvnw .
-COPY .mvn .mvn
-COPY pom.xml .
-COPY src src
+FROM openjdk:8-jdk-alpine3.9 
+COPY --from=builder dependencies/ ./
+COPY --from=builder snapshot-dependencies/ ./
+COPY --from=builder spring-boot-loader/ ./
+COPY --from=builder application/ ./
+ENTRYPOINT ["java", "org.springframework.boot.loader.JarLauncher"]
 
-RUN ./mvnw install -DskipTests
-RUN mkdir -p target/extracted && (java -Djarmode=layertools -jar target/*.jar extract --destination target/extracted)
-
-
-FROM openjdk:8-jre-alpine3.9
-WORKDIR /app
-ARG EXTRACTED=/workspace/app-source/target/extracted
-
-EXPOSE 8090
-
-COPY --from=build ${EXTRACTED}/dependencies/ ./
-COPY --from=build ${EXTRACTED}/spring-boot-loader/ ./
-COPY --from=build ${EXTRACTED}/snapshot-dependencies/ ./
-COPY --from=build ${EXTRACTED}/application/ ./
-ENTRYPOINT ["java","org.springframework.boot.loader.JarLauncher"]
