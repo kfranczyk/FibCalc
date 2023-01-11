@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="script.js" defer></script>
+
+    <style>
+        .bold {
+            font-weight: bold;
+        }
+
+        body {
+            display: flex;
+            justify-content: space-evenly;
+            flex-wrap: wrap;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h2>Fibonacci</h2>
+        <label for="fib-n-input">Podaj indeks liczby z ciągu fibonacciego do wyliczenia (do 92 bo dalej jest overflow)</label>
+        </br>
+        <input type="number" id="fib-n-input" step="1" min="0" required>
+        <button id="calc-button">Oblicz</button>
+        </br>
+        <label for="result" class="bold"><h4>Wynik:</h4></label>
+        <div id="result"></div>
+    </div>
+    <div>
+        <h3>Dane Autora</h3>
+        <table>
+                <tr>
+                    <td><label for="app-name" class="bold">Nazwa aplikacji</label></td>
+                    <td><p id="app-name">FibCalc</p></td>
+                </tr>
+                <tr>
+                    <td><label for="author" class="bold">Imie i Nazwisko</label></td>
+                    <td><p id="author">Karol Franczyk</p></td>
+                </tr>
+                <tr>
+                    <td><label for="group-id" class="bold">Nr. grupy</label></td>
+                    <td><p id="group-id"> IMST (teraz I2S) 2.2 </p></td>
+                </tr>
+        </table>
+    </div>
+</body>
+</html>

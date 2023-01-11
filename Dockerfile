@@ -1,12 +1,9 @@
-FROM openjdk:8-jdk-alpine3.9 as builder
-ARG JAR_FILE=target/*.jar
-COPY ${JAR_FILE} application.jar
-RUN java -Djarmode=layertools -jar application.jar extract
-
 FROM openjdk:8-jdk-alpine3.9 
-COPY --from=builder dependencies/ ./
-COPY --from=builder snapshot-dependencies/ ./
-COPY --from=builder spring-boot-loader/ ./
-COPY --from=builder application/ ./
+ARG APP=target/layers
+COPY ${APP}/dependencies/ ./
+COPY ${APP}/snapshot-dependencies/ ./
+COPY ${APP}/spring-boot-loader/ ./
+COPY ${APP}/application/ ./
 ENTRYPOINT ["java", "org.springframework.boot.loader.JarLauncher"]
+
 
