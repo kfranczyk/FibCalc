@@ -8,7 +8,7 @@ on:
       - "v*.*.*"
 
 env:
-  GITREGISTRY: ghcr.io/${{ secrets.DOCKERHUB_USERNAME }}
+  GITREGISTRY: ghcr.io/${{ github.actor }}
 
 jobs:
   build-and-push:
@@ -55,5 +55,5 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          cache-from: type=registry,ref=docker.io/${{ secrets.DOCKERHUB_USERNAME }}/fib-calc-cache:latest
-          cache-to: type=registry,ref=docker.io/${{ secrets.DOCKERHUB_USERNAME }}/fib-calc-cache:latest,mode=max
+          cache-from: type=registry,ref=docker.io/${{ secrets.DOCKERHUB_USERNAME }}/fib-calc-cache
+          cache-to: type=registry,ref=docker.io/${{ secrets.DOCKERHUB_USERNAME }}/fib-calc-cache,mode=max
